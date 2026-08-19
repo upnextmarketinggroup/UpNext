@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   BRAND TOKENS — the single source of truth for colour, type and motion.
+   Change a value here and the entire site follows. Never hardcode a hex
+   in a component.
+   ========================================================================== */
+:root {
+  /* Colour — §3.
+     Each colour is declared twice: once as a hex (for use in plain CSS such as
+     gradients and inline SVG) and once as space-separated RGB channels, which
+     is what lets Tailwind apply opacity modifiers like `bg-cyan/10`.
+     EDIT BOTH when changing a colour. */
+  --cyan: #53a5d8;        /* brand accent: the one energy colour */
+  --cyan-rgb: 83 165 216;
+  --cyan-deep: #2e86c1;   /* hover / active / gradient depth */
+  --cyan-deep-rgb: 46 134 193;
+  --off-white: #f6f8fa;   /* default page background */
+  --off-white-rgb: 246 248 250;
+  --white: #ffffff;       /* cards, elevated surfaces */
+  --white-rgb: 255 255 255;
+  --ink: #0b0b0c;         /* near-black text */
+  --ink-rgb: 11 11 12;
+  --muted: #6b7280;       /* secondary text */
+  --muted-rgb: 107 114 128;
+  --line: #e6e9ed;        /* hairline borders */
+  --line-rgb: 230 233 237;
+
+  /* Type — headline font is swappable, see `theme.headlineFont` in content/content.ts */
+  --font-display: 'Clash Display', 'Archivo', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Motion */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 720ms;
+}
+
+/* Headline font alternates — one-line swap in content/content.ts (§3). */
+:root[data-headline='anton'] {
+  --font-display: 'Anton', 'Archivo', system-ui, sans-serif;
+}
+:root[data-headline='archivo'] {
+  --font-display: 'Archivo', system-ui, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   Base / reset
+   -------------------------------------------------------------------------- */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply border-line;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* Lenis drives scrolling; disable native smooth so they don't fight. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  html.lenis {
+    scroll-behavior: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-off-white font-sans text-base text-ink antialiased;
+    /* No horizontal scroll, ever. */
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img, video, svg {
+    @apply block max-w-full;
+  }
+
+  /* Visible, branded focus state on every interactive element (§12). */
+  :focus-visible {
+    outline: 3px solid var(--cyan-deep);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--cyan);
+    color: var(--white);
+  }
+
+  /* Anton has no lowercase-friendly weight range; letter-space it back out. */
+  :root[data-headline='anton'] h1,
+  :root[data-headline='anton'] h2 {
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Components / utilities
+   -------------------------------------------------------------------------- */
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-3 sm:px-4 lg:px-6;
+  }
+
+  .prose-width {
+    @apply max-w-prose;
+  }
+
+  /* Section rhythm — generous by default (§3: cramped = cheap). */
+  .section {
+    @apply py-12 lg:py-20;
+  }
+
+  .eyebrow {
+    @apply mb-2 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-[0.14em] text-cyan-deep;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-1 rounded-full px-4 py-2 text-base font-semibold
+           transition-all duration-[var(--dur-base)] ease-brand
+           focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px]
+           focus-visible:outline-cyan-deep;
+  }
+
+  .btn-primary {
+    @apply btn bg-cyan text-white hover:-translate-y-0.5 hover:bg-cyan-deep active:translate-y-0;
+    box-shadow: 0 4px 16px rgb(var(--cyan-rgb) / 0.32);
+  }
+  /* Hero-scale CTA gets the bigger bloom. */
+  .btn-primary.text-lg {
+    box-shadow: 0 8px 32px rgb(var(--cyan-rgb) / 0.38);
+  }
+
+  .btn-secondary {
+    @apply btn border border-line bg-white text-ink hover:-translate-y-0.5 hover:border-ink/20 hover:shadow-card;
+  }
+
+  .btn-ghost {
+    @apply btn text-ink hover:text-cyan-deep;
+  }
+
+  .card {
+    @apply rounded-lg border border-line bg-white shadow-card;
+  }
+
+  .field-label {
+    @apply mb-1 block text-sm font-semibold text-ink;
+  }
+
+  .field-input {
+    @apply w-full rounded border border-line bg-white px-2 py-2 text-base text-ink
+           placeholder:text-muted/70 transition-colors duration-[var(--dur-fast)]
+           hover:border-muted/40 focus:border-cyan focus:outline-none focus:ring-4 focus:ring-cyan/20;
+  }
+
+  /* Marks a placeholder surface so unswapped assets are obvious (§10). */
+  .placeholder-surface {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(83, 165, 216, 0.09) 0px,
+      rgba(83, 165, 216, 0.09) 12px,
+      transparent 12px,
+      transparent 24px
+    );
+  }
+}
+
+@layer utilities {
+  .text-gradient-cyan {
+    background: linear-gradient(100deg, var(--cyan-deep), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Hero wash: keeps text razor-readable over video (§6.2). */
+  .hero-wash {
+    background:
+      linear-gradient(180deg, rgba(246, 248, 250, 0.92) 0%, rgba(246, 248, 250, 0.66) 45%, rgba(246, 248, 250, 0.88) 100%),
+      radial-gradient(60% 70% at 85% 25%, rgba(83, 165, 216, 0.5) 0%, transparent 70%),
+      linear-gradient(120deg, rgba(83, 165, 216, 0.3) 0%, rgba(83, 165, 216, 0) 55%, rgba(46, 134, 193, 0.32) 100%);
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* Word-by-word hero reveal — GSAP animates the inner span. */
+  .word-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+  }
+  .word-mask > span {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  /* Pre-animation state. Scoped to `[data-reveal-scope]` (set by the Reveal
+     component) on purpose: an element marked data-reveal outside a Reveal
+     wrapper stays visible rather than being stuck at opacity 0 forever.
+     GSAP clears these; `.no-motion` on <html> restores everything if JS fails
+     or reduced motion is on. */
+  [data-reveal-scope] [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  html.no-motion [data-reveal],
+  html.no-motion .word-mask > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion — honour the OS setting (§4, §12).
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal],
+  .word-mask > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Continuous logo marquee (paused for reduced motion above). */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
