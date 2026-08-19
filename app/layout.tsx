@@ -1,10 +1,13 @@
 import type { Metadata, Viewport } from 'next';
 import SmoothScroll from '@/components/SmoothScroll';
 import { site, theme } from '@/content/content';
+import { getSiteUrlObject } from '@/lib/site-url';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? site.url),
+  // Never `new URL(process.env…)` directly — a blank env var throws at build
+  // time and takes the whole build down. See lib/site-url.ts.
+  metadataBase: getSiteUrlObject(),
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s — ${site.name}`,

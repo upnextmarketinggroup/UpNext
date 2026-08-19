@@ -34,6 +34,11 @@ export const site = {
   email: 'upnextmarketinggroup@gmail.com',
   // PLACEHOLDER — swap with the real business phone number, or delete to hide.
   phone: '',
+  /**
+   * Canonical domain, used for metadata/OpenGraph links. Safe to leave blank —
+   * lib/site-url.ts falls back to VERCEL_URL and then to a default, so the
+   * build never depends on this being filled in.
+   */
   url: 'https://upnextmarketing.com',
 };
 

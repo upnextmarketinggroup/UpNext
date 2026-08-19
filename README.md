@@ -153,8 +153,10 @@ custom form is the better default — it asks for less up front.)
 1. Push this repo to GitHub.
 2. Go to [vercel.com/new](https://vercel.com/new), import the repo. Vercel
    detects Next.js — no settings to change.
-3. Under **Environment Variables**, add `GHL_WEBHOOK_URL` (and
-   `NEXT_PUBLIC_SITE_URL` once the domain is live).
+3. Under **Environment Variables**, add `GHL_WEBHOOK_URL`. Optionally add
+   `NEXT_PUBLIC_SITE_URL` once the real domain is live — but only with a real
+   value. Leaving it blank is fine (the site falls back to Vercel's own
+   deployment URL, then to a default), and the build will not fail either way.
 4. Deploy. Every push to the branch redeploys automatically.
 5. **Settings → Domains** to point `upnextmarketing.com` at it.
 
@@ -249,11 +251,19 @@ Everything in the brief is implemented. A few judgement calls worth knowing:
 4. **The form posts to an internal API route**, not straight to GoHighLevel, so
    the webhook URL stays server-side and the payload gets validated twice.
 
-5. **The Growth System card is styled distinctly (cyan) but doesn't span two
+5. **The site's base URL is resolved through
+   [`lib/site-url.ts`](lib/site-url.ts)**, never `new URL(process.env…)`
+   directly. Next.js evaluates page metadata during the build, so one blank
+   environment variable reaching `new URL('')` fails the entire production
+   build. The resolver tries `NEXT_PUBLIC_SITE_URL`, then `VERCEL_URL`, then
+   `site.url` from `content.ts`, then a hardcoded default — rejecting blank and
+   malformed values at each step, so it can never return an empty string.
+
+6. **The Growth System card is styled distinctly (cyan) but doesn't span two
    columns.** A spanning card left a visible hole in the grid; colour marks it as
    the flagship instead.
 
-6. **Placeholder media is a branded animated gradient**, not a stock video. It
+7. **Placeholder media is a branded animated gradient**, not a stock video. It
    reads as intentional rather than broken, and clearly labels itself so no
    unswapped asset can quietly ship.
 
