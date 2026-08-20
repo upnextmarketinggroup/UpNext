@@ -11,6 +11,9 @@ import { site } from '@/content/content';
  *   longer part of the nav, but it stays the favicon / browser-tab icon
  *   (see app/icon.svg) and the square avatar mark for social and /start.
  *
+ * The header reads "UpNext"; the full legal name, "UpNext Media", is
+ * `site.name` and belongs in the footer, metadata and legal copy.
+ *
  * SWAPPING IN THE REAL LOGO: drop the client file at
  * `public/logo/upnext.svg` (and `public/logo/upnext-white.svg` for the
  * knockout) and set USE_IMAGE_FILES = true below. Nothing else changes.
@@ -112,7 +115,7 @@ export default function Logo({
   if (!href) return inner;
 
   return (
-    <Link href={href} aria-label={`${site.name} — home`} className="rounded-sm">
+    <Link href={href} aria-label={`${site.shortName} — home`} className="rounded-sm">
       {inner}
     </Link>
   );

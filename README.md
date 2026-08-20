@@ -1,6 +1,6 @@
-# UpNext Marketing — Website
+# UpNext Media — Website
 
-Marketing site for **UpNext Marketing**, a video-led agency serving local
+Marketing site for **UpNext Media**, a video-led agency serving local
 businesses in the Los Angeles / Glendale area.
 
 The site has one job: get the visitor to fill out the lead form. Everything else
@@ -158,7 +158,7 @@ custom form is the better default — it asks for less up front.)
    value. Leaving it blank is fine (the site falls back to Vercel's own
    deployment URL, then to a default), and the build will not fail either way.
 4. Deploy. Every push to the branch redeploys automatically.
-5. **Settings → Domains** to point `upnextmarketing.com` at it.
+5. **Settings → Domains** to point `upnextmedia.com` at it.
 
 After changing an environment variable, redeploy for it to take effect.
 
