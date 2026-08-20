@@ -1,7 +1,7 @@
 <!-- Favicon / browser-tab icon: the UpNext circle badge. Kept in sync with
      LogoMark in components/Logo.tsx — colours and the font stack are inlined
      here because a standalone SVG has no access to the site's CSS tokens. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="UpNext Marketing logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="UpNext Media logo">
   <circle cx="60" cy="60" r="60" fill="#53a5d8" />
   <!-- U with the arrow integrated into the right ascender -->
   <path

@@ -1,5 +1,5 @@
 /* ===========================================================================
- * UpNext Marketing — SITE CONTENT
+ * UpNext Media — SITE CONTENT
  * ---------------------------------------------------------------------------
  * THIS IS THE ONLY FILE YOU NEED TO EDIT to change copy, swap placeholder
  * assets, update client logos/quotes/numbers, or change links.
@@ -25,11 +25,11 @@ export const theme = {
  * 2. SITE / BRAND
  * ------------------------------------------------------------------------- */
 export const site = {
-  name: 'UpNext Marketing',
+  name: 'UpNext Media',
   shortName: 'UpNext',
   tagline: 'Video-led marketing for local businesses.',
   description:
-    'UpNext Marketing builds the structure, identity, and system behind local businesses in Los Angeles and Glendale. Video-led marketing that turns local businesses into the ones everyone notices.',
+    'UpNext Media builds the structure, identity, and system behind local businesses in Los Angeles and Glendale. Video-led marketing that turns local businesses into the ones everyone notices.',
   location: 'Los Angeles / Glendale, CA',
   email: 'upnextmarketinggroup@gmail.com',
   // PLACEHOLDER — swap with the real business phone number, or delete to hide.
@@ -39,7 +39,7 @@ export const site = {
    * lib/site-url.ts falls back to VERCEL_URL and then to a default, so the
    * build never depends on this being filled in.
    */
-  url: 'https://upnextmarketing.com',
+  url: 'https://upnextmedia.com',
 };
 
 export const nav = {
@@ -254,7 +254,7 @@ export const miniAbout = {
   headline: 'A local team that shoots, builds, and answers the phone.',
   /* PLACEHOLDER COPY — replace with the founder's own words. */
   body: [
-    'UpNext Marketing is a video-led agency in the Los Angeles area, built on a simple idea: the businesses that look the best are the ones people choose.',
+    'UpNext Media is a video-led agency in the Los Angeles area, built on a simple idea: the businesses that look the best are the ones people choose.',
     'We are not a niche shop. We have built the structure, identity and system behind restaurants, medical practices, service businesses and retail — because good marketing is the same craft, pointed at a different customer.',
   ],
   cta: { label: 'Read our story', href: '/about' },
@@ -388,7 +388,7 @@ export const aboutPage = {
   founder: {
     /* PLACEHOLDER — founder name and role. */
     name: '[FOUNDER NAME]',
-    role: 'Founder, UpNext Marketing',
+    role: 'Founder, UpNext Media',
   },
   values: [
     {
