@@ -27,19 +27,13 @@ export default function Hero() {
         { opacity: 1, scale: 1, duration: 1.4 }
       )
         .fromTo(
-          '[data-hero-eyebrow]',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.6 },
-          0.15
-        )
-        .fromTo(
           '[data-hero-word]',
           { yPercent: 110 },
           { yPercent: 0, duration: 0.95, stagger: 0.055 },
           0.25
         )
         .fromTo(
-          '[data-hero-sub], [data-hero-actions], [data-hero-hint]',
+          '[data-hero-sub], [data-hero-actions]',
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
           0.7
@@ -88,11 +82,6 @@ export default function Hero() {
       )}
 
       <div className="container-content relative">
-        <p data-hero-eyebrow className="eyebrow">
-          <span className="h-0.5 w-0.5 rounded-full bg-cyan" aria-hidden />
-          {hero.eyebrow}
-        </p>
-
         <h1 className="max-w-[19ch] text-display-lg font-bold text-ink">
           {hero.headline.map((word, i) => (
             /* The space lives OUTSIDE the mask — a trailing space inside an
@@ -136,15 +125,6 @@ export default function Hero() {
             {hero.secondaryCta.label}
           </Link>
         </div>
-      </div>
-
-      <div
-        data-hero-hint
-        aria-hidden
-        className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted [@media(min-height:860px)]:flex"
-      >
-        {hero.scrollHint}
-        <span className="h-4 w-px bg-gradient-to-b from-cyan to-transparent" />
       </div>
     </section>
   );

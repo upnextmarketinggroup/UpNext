@@ -18,7 +18,7 @@ export const theme = {
    *   'anton'   — Anton (condensed, closest to the logo's weight)
    *   'archivo' — Archivo Black/Expanded (bold, wide, neutral)
    */
-  headlineFont: 'clash' as 'clash' | 'anton' | 'archivo',
+  headlineFont: 'anton' as 'clash' | 'anton' | 'archivo',
 };
 
 /* ---------------------------------------------------------------------------
@@ -84,24 +84,16 @@ export const media = {
  * 4. HOMEPAGE
  * ------------------------------------------------------------------------- */
 export const hero = {
-  eyebrow: 'Los Angeles · Glendale',
   /* Rendered word-by-word. `accent: true` paints a word in cyan. */
   headline: [
-    { text: 'Structure,' },
-    { text: 'identity,' },
-    { text: 'and' },
-    { text: 'the' },
-    { text: 'system' },
-    { text: 'that' },
-    { text: 'gets' },
-    { text: 'you' },
-    { text: 'customers.', accent: true },
+    { text: 'Structure.' },
+    { text: 'Identity.' },
+    { text: 'Systems.', accent: true },
   ],
   subhead:
-    'Video-led marketing that turns local businesses into the ones everyone notices.',
+    "Video-production-led marketing that makes local businesses impossible to ignore. And no — we don't show up to shoots with iPhones.",
   primaryCta: { label: 'Free Marketing Audit', href: '#audit' },
   secondaryCta: { label: 'See the work', href: '/work' },
-  scrollHint: 'Scroll',
 };
 
 export const workShowcase = {
