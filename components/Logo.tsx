@@ -3,8 +3,13 @@ import Link from 'next/link';
 import { site } from '@/content/content';
 
 /**
- * UpNext mark — cyan badge with a white "UP" whose U carries the arrow, over
- * "NEXT." (§3).
+ * UpNext identity (§3).
+ *
+ * - `Logo` — the header/footer lockup: a text wordmark, "Up" in ink and
+ *   "Next" in cyan, set in Anton. No badge.
+ * - `LogoMark` — the cyan circle badge with the arrow-U over "NEXT.". It is no
+ *   longer part of the nav, but it stays the favicon / browser-tab icon
+ *   (see app/icon.svg) and the square avatar mark for social and /start.
  *
  * SWAPPING IN THE REAL LOGO: drop the client file at
  * `public/logo/upnext.svg` (and `public/logo/upnext-white.svg` for the
@@ -14,7 +19,7 @@ const USE_IMAGE_FILES = false;
 
 type Variant = 'onLight' | 'onCyan';
 
-function Mark({ variant, className }: { variant: Variant; className?: string }) {
+export function LogoMark({ variant, className }: { variant: Variant; className?: string }) {
   const badge = variant === 'onCyan' ? 'var(--white)' : 'var(--cyan)';
   const glyph = variant === 'onCyan' ? 'var(--cyan)' : 'var(--white)';
 
@@ -72,10 +77,23 @@ export default function Logo({
   className?: string;
   href?: string | null;
 }) {
-  const textColor = variant === 'onCyan' ? 'text-white' : 'text-ink';
+  /* On cyan the wordmark knocks out in white; the accent half goes ink so
+     "Next" still reads as its own word. */
+  const upColor = variant === 'onCyan' ? 'text-white' : 'text-ink';
+  const nextColor = variant === 'onCyan' ? 'text-ink' : 'text-cyan';
 
-  const inner = (
-    <span className={`inline-flex items-center gap-1 ${className}`}>
+  const inner = withWordmark ? (
+    /* Anton only ships one weight — no font-semibold, and a touch of negative
+       tracking to tighten the two halves into a single word. */
+    <span
+      className={`inline-flex items-baseline text-lg leading-none tracking-[-0.01em] ${className}`}
+      style={{ fontFamily: "'Anton', var(--font-display), system-ui, sans-serif" }}
+    >
+      <span className={upColor}>Up</span>
+      <span className={nextColor}>Next</span>
+    </span>
+  ) : (
+    <span className={`inline-flex items-center ${className}`}>
       {USE_IMAGE_FILES ? (
         <Image
           src={variant === 'onCyan' ? '/logo/upnext-white.svg' : '/logo/upnext.svg'}
@@ -86,14 +104,7 @@ export default function Logo({
           priority
         />
       ) : (
-        <Mark variant={variant} className="h-5 w-5 shrink-0" />
-      )}
-      {withWordmark && (
-        <span
-          className={`font-display text-lg font-semibold leading-none tracking-[-0.02em] ${textColor}`}
-        >
-          UpNext
-        </span>
+        <LogoMark variant={variant} className="h-5 w-5 shrink-0" />
       )}
     </span>
   );
